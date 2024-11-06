@@ -26,9 +26,6 @@ def is_special_symbol():
         return True
     else:
         return False
-
-# true_or_false = is_special_symbol()
-# print(true_or_false)
     
 def generate_password(pass_len, is_any_symbol):
     string_of_all_elements = string.ascii_letters + string.digits
