@@ -1,8 +1,10 @@
-import secrets
+import secrets  # It's just so much better than random
 import string
 import datetime
 
 
+# GitHub: @Milterdone
+# Vladislav Goncharov
 def get_password_length():
     length = None
     try:
@@ -49,7 +51,10 @@ def save_password(password):
         print("Password saved successfully.")
     except FileNotFoundError:
         print("Error: The file 'passwords.txt' does not exist.")
-        exit(1)
+        print("Creating the password.txt file...")
+        with open("password.txt", "w"):
+            file.write("===== PASSWORDS FILE ======")
+        save_password(password)
     except PermissionError:
         print("Error: Permission denied. Cannot write to 'passwords.txt'.")
         exit(1)
