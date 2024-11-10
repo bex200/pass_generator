@@ -1,3 +1,55 @@
+from tkinter import *
+from webbrowser import open_new
+
+# ------------------- setting up UI----------------#
+window = Tk()
+window.title("Calculator")
+window.config(pady=20, padx = 20)
+
+canvas = Canvas(width=100, height=50)
+canvas.create_text(50,25,text='text',font=('Arial',30,'normal'))
+canvas.grid(column=0,row=0,columnspan=4,sticky='EW')
+
+one = Button(text='1')
+two = Button(text='2')
+three = Button(text='3')
+four = Button(text='4')
+five = Button(text='5')
+six = Button(text='6')
+seven = Button(text='7')
+eight = Button(text='8')
+nine = Button(text='9')
+zero = Button(text='0')
+plus = Button(text='+')
+subtract = Button(text='-')
+multiply = Button(text='*')
+divide = Button(text='/')
+float_numb = Button(text='.')
+equal = Button(text='=')
+
+equal.grid(column=0,row=4)
+float_numb.grid(column=2,row=4)
+zero.grid(column=1,row=4)
+one.grid(column=0,row=3)
+two.grid(column=1,row=3)
+three.grid(column=2,row=3)
+four.grid(column=0,row=2)
+five.grid(column=1,row=2)
+six.grid(column=2,row=2)
+seven.grid(column=0,row=1)
+eight.grid(column=1,row=1)
+nine.grid(column=2,row=1)
+plus.grid(column=3,row=4)
+subtract.grid(column=3,row=3)
+multiply.grid(column=3,row=2)
+divide.grid(column=3,row=1)
+
+
+
+
+
+window.mainloop()
+
 def add(n1, n2):
     return n1 + n2
 
