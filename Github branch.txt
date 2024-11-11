@@ -1,0 +1,6 @@
+
+git add .
+git commit -m "Initial commit"
+git config --global user.name "altynaymazhen"
+git status
+git push
