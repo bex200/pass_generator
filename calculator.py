@@ -1,10 +1,24 @@
 from tkinter import *
 from webbrowser import open_new
+# ------------------- identifying which button was clicked -----------------------#
+def press_numb(button_text):
+    global first_numb
+    first_numb += button_text
+    canvas.itemconfig(display,text=first_numb)
+    return button_text
+
+# ------------------- identifying operation -----------------#
+def press_operation(operation):
+    print(operation)
+
 
 # ------------------- setting up UI----------------#
 window = Tk()
 window.title("Calculator")
 window.config(pady=20, padx = 20)
+
+first_numb = ''
+operation = ''
 
 canvas = Canvas(width=100, height=50)
 canvas.create_text(50,25,text='text',font=('Arial',30,'normal'))
