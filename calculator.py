@@ -1,15 +1,29 @@
 from tkinter import *
 from webbrowser import open_new
-# ------------------- identifying which button was clicked -----------------------#
+# ------------------- getting numbers -----------------------#
 def press_numb(button_text):
     global first_numb
-    first_numb += button_text
-    canvas.itemconfig(display,text=first_numb)
+    global oper
+    global display_text
+    global second_numb
+    if oper != '' and oper in display_text:
+        second_numb += button_text
+        display_text += button_text
+        canvas.itemconfig(display,text=display_text)
+    else:
+        first_numb += button_text
+        display_text += button_text
+        canvas.itemconfig(display,text=display_text)
     return button_text
 
 # ------------------- identifying operation -----------------#
 def press_operation(operation):
-    print(operation)
+    global oper
+    global display_text
+    oper = operation
+    display_text += operation
+    canvas.itemconfig(display,text=display_text)
+    return operation
 
 
 # ------------------- setting up UI----------------#
@@ -19,10 +33,13 @@ window.config(pady=20, padx = 20)
 
 first_numb = ''
 operation = ''
+second_numb = ''
 
 canvas = Canvas(width=100, height=50)
-canvas.create_text(50,25,text='text',font=('Arial',30,'normal'))
+display = canvas.create_text(50,25,text='text',font=('Arial',30,'normal'))
 canvas.grid(column=0,row=0,columnspan=4,sticky='EW')
+
+display_text = canvas.itemcget(display,'text')
 
 one = Button(text='1')
 two = Button(text='2')
