@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 
 FONT = ('Arial',16,'normal')
 IS_OPERATION_SET = False
@@ -33,6 +34,37 @@ def press_operation(operation):
     oper = operation
     canvas.itemconfig(display,text=display_text)
     return operation
+
+# ------------------- adding equal button functionality -------------#
+def equal():
+    global first_numb
+    global oper
+    global display_text
+    global second_numb
+    global IS_OPERATION_SET
+    result = float(first_numb)
+    if first_numb != '' and oper != '' and second_numb !='':
+        if oper == '/' and second_numb == '0':
+            messagebox.showerror(title='Zero Division error',message='You can not divide by zero.')
+        if oper == '+':
+            result += float(second_numb)
+        elif oper == '-':
+            result -= float(second_numb)
+        elif oper == '/':
+            result /= float(second_numb)
+        elif oper == '*':
+            result *= float(second_numb)
+        if result % 1 == 0:
+            display_text = str(int(result))
+        else:
+            display_text = str(result)
+        canvas.itemconfig(display,text=display_text)
+        first_numb = display_text
+        second_numb = ''
+        oper = ''
+        IS_OPERATION_SET = False
+    else:
+        messagebox.showerror(title='Invalid expression', message='Please provide valid expression.')
 
 
 # ------------------- setting up UI----------------#
