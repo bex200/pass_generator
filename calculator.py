@@ -2,6 +2,8 @@ from tkinter import *
 
 FONT = ('Arial',16,'normal')
 IS_OPERATION_SET = False
+NUMB_COLOR = 'khaki'
+OPER_COLOR = 'orange'
 # ------------------- getting numbers -----------------------#
 def press_numb(button_text):
     global first_numb
@@ -35,7 +37,7 @@ def press_operation(operation):
 
 # ------------------- setting up UI----------------#
 window = Tk()
-window.config(bg='grey')
+window.config(bg='grey16')
 window.title("Calculator")
 window.config(pady=20, padx = 20)
 
@@ -43,8 +45,8 @@ first_numb = ''
 operation = ''
 second_numb = ''
 
-canvas = Canvas(width=100, height=50)
-display = canvas.create_text(75,25,text='',font=('Arial',20,'normal'))
+canvas = Canvas(width=150, height=50,bg='grey26',highlightthickness=0)
+display = canvas.create_text(75,25,text='',font=('Arial',20,'normal'),fill='light yellow')
 canvas.grid(column=0,row=0,columnspan=4,sticky='EW',padx=10,pady=10)
 
 display_text = canvas.itemcget(display,'text')
@@ -66,9 +68,9 @@ multiply = Button(text='*',font=FONT,background=OPER_COLOR,width=3,height=2, com
 divide = Button(text='/',font=FONT,background=OPER_COLOR,width=3,height=2, command=lambda:press_operation('/'))
 
 float_numb = Button(text='.',font=FONT,width=3,height=2)
-equal = Button(text='=',font=FONT,width=3,height=2)
+equal_button = Button(text='=',font=FONT,width=3,height=2)
 
-equal.grid(column=0,row=4)
+equal_button.grid(column=0,row=4)
 float_numb.grid(column=2,row=4)
 zero.grid(column=1,row=4)
 one.grid(column=0,row=3)
