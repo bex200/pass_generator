@@ -5,7 +5,22 @@ FONT = ('Arial',16,'normal')
 IS_OPERATION_SET = False
 NUMB_COLOR = 'khaki'
 OPER_COLOR = 'orange'
-# ------------------- getting numbers -----------------------#
+
+first_numb = ''
+oper = ''
+second_numb = ''
+
+# ------------------- clearing the display ---------------------- #
+def clear_display():
+    global first_numb, oper, second_numb,display_text, IS_OPERATION_SET
+    display_text = ''
+    first_numb = ''
+    second_numb = ''
+    oper = ''
+    IS_OPERATION_SET = False
+    canvas.itemconfig(display,text=display_text)
+
+# ------------------- getting numbers ----------------------- #
 def press_numb(button_text):
     global first_numb
     global oper
@@ -21,11 +36,9 @@ def press_numb(button_text):
         canvas.itemconfig(display,text=display_text)
     return button_text
 
-# ------------------- identifying operation -----------------#
+# ------------------- identifying operation ----------------- #
 def press_operation(operation):
-    global oper
-    global display_text
-    global IS_OPERATION_SET
+    global oper, display_text, IS_OPERATION_SET
     if not IS_OPERATION_SET:
         display_text += operation
         IS_OPERATION_SET = True
@@ -35,47 +48,67 @@ def press_operation(operation):
     canvas.itemconfig(display,text=display_text)
     return operation
 
-# ------------------- adding equal button functionality -------------#
+# -------------------- adding functionaloty to decimal separator button -------------------- #
+def decimal_separator():
+    global first_numb, oper, second_numb, display_text
+    if display_text == '':
+        first_numb += '0.'
+        display_text += '0.'
+        canvas.itemconfig(display,text=display_text)
+    elif display_text[-1] == oper:
+        display_text += '0.' 
+        second_numb += '0.'
+        canvas.itemconfig(display,text=display_text)
+    else:
+        if '.' not in first_numb:
+            first_numb += '.'
+            display_text += '.'
+            canvas.itemconfig(display,text=display_text)
+        if second_numb != '':
+            if '.' not in second_numb:
+                second_numb += '.'
+                display_text += '.'
+                canvas.itemconfig(display,text=display_text)
+
+
+# ------------------- adding equal button functionality ------------- #
 def equal():
-    global first_numb
-    global oper
-    global display_text
-    global second_numb
-    global IS_OPERATION_SET
-    result = float(first_numb)
+    global first_numb, oper, display_text,second_numb, IS_OPERATION_SET
     if first_numb != '' and oper != '' and second_numb !='':
+        result = float(first_numb)
         if oper == '/' and second_numb == '0':
-            messagebox.showerror(title='Zero Division error',message='You can not divide by zero.')
+            display_text = first_numb + oper
+            canvas.itemconfig(display,text=display_text)
+            second_numb = ''
+            messagebox.showerror(title='Zero Division error',message='You can not divide by zero. Please provide valid expression.')
+            return None
         if oper == '+':
             result += float(second_numb)
         elif oper == '-':
             result -= float(second_numb)
-        elif oper == '/':
+        elif oper == '/' and second_numb != '0':
             result /= float(second_numb)
         elif oper == '*':
             result *= float(second_numb)
         if result % 1 == 0:
             display_text = str(int(result))
         else:
-            display_text = str(result)
+            display_text = str(round(result,6))
         canvas.itemconfig(display,text=display_text)
         first_numb = display_text
         second_numb = ''
         oper = ''
         IS_OPERATION_SET = False
     else:
+        clear_display()
         messagebox.showerror(title='Invalid expression', message='Please provide valid expression.')
+        
 
-
-# ------------------- setting up UI----------------#
+# ------------------- setting up UI---------------- #
 window = Tk()
 window.config(bg='grey16')
 window.title("Calculator")
 window.config(pady=20, padx = 20)
-
-first_numb = ''
-operation = ''
-second_numb = ''
 
 canvas = Canvas(width=150, height=50,bg='grey26',highlightthickness=0)
 display = canvas.create_text(75,25,text='',font=('Arial',20,'normal'),fill='light yellow')
@@ -99,25 +132,27 @@ subtract = Button(text='-',font=FONT,background=OPER_COLOR,width=3,height=2, com
 multiply = Button(text='*',font=FONT,background=OPER_COLOR,width=3,height=2, command=lambda:press_operation('*'))
 divide = Button(text='/',font=FONT,background=OPER_COLOR,width=3,height=2, command=lambda:press_operation('/'))
 
-float_numb = Button(text='.',font=FONT,width=3,height=2)
-equal_button = Button(text='=',font=FONT,width=3,height=2)
+float_numb = Button(text='.',font=FONT,width=3,height=2,bg=OPER_COLOR, command=decimal_separator)
+equal_button = Button(text='=',font=FONT,width=3,height=2,command=equal,bg=OPER_COLOR)
+clear_button = Button(text='clear', font=FONT,bg=OPER_COLOR,command=clear_display)
 
-equal_button.grid(column=0,row=4)
-float_numb.grid(column=2,row=4)
-zero.grid(column=1,row=4)
-one.grid(column=0,row=3)
-two.grid(column=1,row=3)
-three.grid(column=2,row=3)
-four.grid(column=0,row=2)
-five.grid(column=1,row=2)
-six.grid(column=2,row=2)
-seven.grid(column=0,row=1)
-eight.grid(column=1,row=1)
-nine.grid(column=2,row=1)
-plus.grid(column=3,row=4)
-subtract.grid(column=3,row=3)
-multiply.grid(column=3,row=2)
-divide.grid(column=3,row=1)
+equal_button.grid(column=0,row=5)
+clear_button.grid(column=0,row=1,columnspan=4,sticky='EW')
+float_numb.grid(column=2,row=5)
+zero.grid(column=1,row=5)
+one.grid(column=0,row=4)
+two.grid(column=1,row=4)
+three.grid(column=2,row=4)
+four.grid(column=0,row=3)
+five.grid(column=1,row=3)
+six.grid(column=2,row=3)
+seven.grid(column=0,row=2)
+eight.grid(column=1,row=2)
+nine.grid(column=2,row=2)
+plus.grid(column=3,row=5)
+subtract.grid(column=3,row=4)
+multiply.grid(column=3,row=3)
+divide.grid(column=3,row=2)
 
 
 
@@ -125,46 +160,3 @@ divide.grid(column=3,row=1)
 
 window.mainloop()
 
-# First version
-def add(n1, n2):
-    return n1 + n2
-
-def subtract(a,b):
-    return a - b
-
-def multiply(c, d):
-    return c * d
-
-def divide(k, l):
-    return k / l
-
-maths = {
-    '+' : add,
-    '/' : divide,
-    '-' : subtract,
-    '*' : multiply
-}
-
-# print(maths['*'](4,8))
-# my_favourite_calculation = add
-# print(my_favourite_calculation(3, 5))
-def calculator():
-    contin = True
-    first_numb = float(input('Please insert first number: \n'))
-    while contin:
-        oper = input('Choose the operation you want to trigger. Type *, -, + or /:\n')
-        second_numb = float(input('Please insert second number: \n'))
-        output = maths[oper](first_numb,second_numb)
-        if output % 1 > 0:
-            print(output)
-        else:
-            output = int(output)
-            print(output)
-        further = input(f'Would you like to continue with the result {output}? Type yes or no. \n')
-        if further.lower() == 'yes':
-            first_numb = output
-        elif further.lower() == 'no':
-            contin = False
-        else:
-            print('Invalid answer')
-            break
