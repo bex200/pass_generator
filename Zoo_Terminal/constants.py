@@ -65,11 +65,48 @@ MENU_OPTIONS = {
     "add animal": "add_animal",
 
     "4": "view_exhibits",
+    "ve": "view_exhibits",
+    "ev": "view_exhibits",
+    "-ve": "view_exhibits",
+    "-ev": "view_exhibits",
+    "view exhibits": "view_exhibits",
+
     "5": "view_staff",
+    "vs": "view_staff",
+    "sv": "view_staff",
+    "-vs": "view_staff",
+    "-sv": "view_staff",
+    "view staff": "view_staff",
+
+
     "6": "view_animals",
+    "vn": "view_animals",
+    "nv": "view_animals",
+    "-nv": "view_animals",
+    "-vn": "view_animals",
+    "view animals": "view_animals",
+
     "7": "staff_task",
+    "st": "staff_task",
+    "ts": "staff_task",
+    "-ts": "staff_task",
+    "-st": "staff_task",
+    "staff task": "staff_task",
+
     "8": "animal_action",
+    "aa": "animal_action",
+    "-aa": "animal_action",
+    "animal action": "animal_action",
+
     "9": "daily_operations",
+    "do": "daily_operations",
+    "od": "daily_operations",
+    "-do": "daily_operations",
+    "-od": "daily_operations",
+    "daily operations": "daily_operations",
+
     "help": "help",
-    "h": "help"
+    "--help": "help",
+    "h": "help",
+    "-h": "help"
 }
