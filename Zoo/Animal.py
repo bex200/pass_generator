@@ -1,12 +1,12 @@
 class Animal:
 
-    def __init__(self, name, species, age, is_endangered=None,password=None):
+    def __init__(self, name, species, age, is_endangered=None):
         self.name = name
         self.species = species
         self.age = age
         self.is_endangered = is_endangered or False
-        self.__passwprd = "admin@adminov"
-        self._half_secret = "adminov"
+        # self.__passwprd = "admin@adminov"
+        # self._half_secret = "adminov"
 
 
     def make_sound(self):
